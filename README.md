@@ -1,2 +1,5 @@
-# Text-Boxes
-Repo for SoftDev Project 00
+# Project 00 by Text Boxes
+Sadid Ethun - Project Manager
+Aaron Contreras - Flask 
+Gavin McGinley - Database
+Angela Zhang - HTML
