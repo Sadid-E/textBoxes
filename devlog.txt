@@ -1,0 +1,9 @@
+Text Boxes -- Sadid Ethun, Aaron Contreras, Gavin McGinley, Angela Zhang
+SoftDev
+POO -- Devlog
+2021-10-29
+
+SadidE -- 2021-10-29 11:40
+
+- Added header to the design sheet
+- Added Task requirements to the design sheet 
