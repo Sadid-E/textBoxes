@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--
+# Team  textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+# SoftDev
+# K14 -- Form and Function (Flask and Forms)
+# 2021-10-14
+-->
+<html>
+  <head>
+    <title> RESPONSE PAGE </title> <!-- title of webpage (not in actual website) -->
+  </head>
+  <body>
+    <h1>
+      hello {{username}}! <br> <!-- inputs username from form -->
+      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+    </h1>
+    <h3>
+    You used {{method}} <!-- get --> to get here!
+    </h3>
+    <form action = "/out">
+      <input type="submit" name="S" value="Log out">
+    </form>
+  </body>
+</html>
