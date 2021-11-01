@@ -7,3 +7,12 @@ SadidE -- 2021-10-29 11:40
 
 - Added header to the design sheet
 - Added Task requirements to the design sheet 
+
+AaronC -- 2021-10-29 8:40
+
+- Wrote launch codes
+- Made basic working site
+
+SadidE -- 2021-11-01 8:40
+
+- Updated requirements
