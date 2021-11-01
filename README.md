@@ -14,7 +14,7 @@ How to create virtual environment (venv):
   1. create venv in home directory using command:  
     python3 -m venv ~/<filename>
   2. activate venv with command:  
-    . ~/<filename>/bin/activate 
+    . ~/<filename>/bin/activate  
      NOTE: on windows the command is:  
     . ~/<filename>/Scripts/activate
   3. install flask on venv with command:  
