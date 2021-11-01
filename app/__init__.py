@@ -49,7 +49,7 @@ def authenticate():
         return Error("No username inputted. Login again. ")
     if(request.args['password'] == ''): #empty password
         return Error("No password inputted. Login again.")
-    if (request.args['username'] != "Snaps") or (request.args['password'] != "snaps123"):
+    if (request.args['username'] != "user") or (request.args['password'] != "password"):
         if request.args['username'] != "Snaps": #incorrect Username
             return Error("Incorrect Username! Login again. ")
         return Error("Incorrect Password! Login again." )
