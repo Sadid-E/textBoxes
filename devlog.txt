@@ -20,3 +20,9 @@ SadidE -- 2021-11-01 8:40
 AaronC -- 2021-11-02 9:29
 
 - Added base page with a form that sends user to either register or login. 
+
+SadidE -- 2021-11-3 0:20
+
+- Made SQLite database
+- Made registration form
+- Made login form
