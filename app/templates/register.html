@@ -13,12 +13,24 @@
   </head>
 
   <body>
+    <center>
       <h1>
-          Enter a new username and password to proceed:
+        Welcome to our story site! 
+        <br>
+        We are Team Text Boxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
       </h1>
+      <h2>
+        Enter a new username and password to proceed.
+      </h2>
+      <h3 style="color:red;">
+        {{error}} <!-- If there is no error (initial start and logging out), this is empty --> <br>
+      </h3>
       <form action="/create" method = "post"> <!-- same pathway as authenticate() -->
-         Username: <input type="text" name="username"> <br>
-         Password: <input type="text" name="password"> <br> <br>
-        <input type="submit" name="sub1"> <!-- used for response page to load -->
+        Username: <input type="text" name="username"> <br>
+        Password: <input type="password" name="password"> <br> 
+        Confirm Password: <input type="password" name="c_password"> 
+        <br><br>
+      <input type="submit" name="sub1"> <!-- used for response page to load -->
       </form>
+    </center>
   </body>

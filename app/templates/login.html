@@ -12,24 +12,26 @@
   <head>
     <title> LOGIN PAGE </title>
   </head>
-
-  <body>
-    <h1>
-      Welcome to our story site! <br>
-      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
-    </h1>
-
-
-    <h3>
-      {{error}} <!-- If there is no error (initial start and logging out), this is empty --> <br>
-      Enter your username and password below to proceed.
-    </h3>
-    <form action="/auth" method = "post"> <!-- same pathway as authenticate() -->
-       Username: <input type="text" name="username"> <br>
-       Password: <input type="text" name="password"> <br> <br>
-      <input type="submit" name="sub1"> <!-- used for response page to load -->
-    </form>
-    <br>
-  </body>
+  <center>
+    <body>
+      <h1>
+        Welcome to our story site! <br>
+        We are Team Text Boxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+      </h1>
+      <br>
+      <h2>
+        Enter your username and password below to proceed.
+      </h2>
+      <h3 style="color:red;">
+        {{error}} <!-- If there is no error (initial start and logging out), this is empty --> <br>
+      </h3>
+      <form action="/auth" method = "post"> <!-- same pathway as authenticate() -->
+         Username: <input type="text" name="username"> <br>
+         Password: <input type="password" name="password"> <br> <br>
+        <input type="submit" name="sub1"> <!-- used for response page to load -->
+      </form>
+      <br>
+    </body>
+  </center>
 
 </html>
