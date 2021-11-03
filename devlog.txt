@@ -16,3 +16,7 @@ AaronC -- 2021-10-29 8:40
 SadidE -- 2021-11-01 8:40
 
 - Updated requirements
+
+AaronC -- 2021-11-02 9:29
+
+- Added base page with a form that sends user to either register or login. 
