@@ -6,12 +6,23 @@ from flask import render_template   #facilitate jinja templating
 from flask import request           #facilitate form submission
 from flask import session           #cookies
 import os #for secret_key
+import sqlite3
 
 #the conventional way:
 #from flask import Flask, render_template, request
 
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32)
+
+DB_FILE="story.db"
+
+db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+c = db.cursor()               #facilitate db ops -- you will use cursor to trigger db events
+
+c.execute("CREATE TABLE IF NOT EXISTS accounts(username TEXT, password TEXT);")
+
+db.commit()
+db.close()
 
 @app.route("/", methods=['GET', 'POST'])
 def disp_loginpage():
@@ -24,19 +35,35 @@ def disp_loginpage():
 
 @app.route("/auth", methods=['GET', 'POST'])
 def authenticate():
-    if(request.form['username'] == ''): #empty username
-        return Error("No username inputted. Login again. ")
-    if(request.form['password'] == ''): #empty password
-        return Error("No password inputted. Login again.")
-    if (request.form['username'] != "user") or (request.form['password'] != "password"):
-        #if request.form['username'] != "Snaps": #incorrect Username
-            #return Error("Incorrect Username! Login again. ")
-        return Error("Incorrect Password! Login again." )
-  
-    m = request.method #either get or post
-    session["name"] = request.form['username'] #inputs cookies
-    session["password"] = request.form['password'] #inputs cookies
-    #print(request.form['username'])
+    user = request.form['username']
+    pwd = request.form['password']
+    if(user == ''): #empty username
+        return render_template('login.html', error="No username inputted. Login again.")
+    if(pwd == ''): #empty password
+        return render_template('login.html', error="No password inputted. Login again.")
+    db = sqlite3.connect(DB_FILE) 
+    c = db.cursor()
+    c.execute("SELECT * from accounts WHERE username=:u AND password=:p;", {"u":user, "p":pwd})
+    if not c.fetchone():
+        return render_template('login.html', error="Username or password incorrect. Login again.")
+    else:
+        m = request.method #either get or post
+        session["name"] = request.form['username'] #inputs cookies
+        session["password"] = request.form['password'] #inputs cookies
+        return render_template('response.html', username = session["name"], method = m)
+    db.commit()
+    db.close()
+
+@app.route("/create", methods=['GET', 'POST'])
+def create():
+    db = sqlite3.connect(DB_FILE) 
+    c = db.cursor()
+    c.execute('INSERT INTO accounts (username, password) VALUES(?,?)',(request.form['username'],request.form['password']))
+    db.commit()
+    db.close()
+    m = request.method 
+    session["name"] = request.form['username'] 
+    session["password"] = request.form['password'] 
     return render_template('response.html', username = session["name"], method = m)
 
 @app.route("/login" , methods = ['GET', 'POST'])

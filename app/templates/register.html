@@ -16,4 +16,9 @@
       <h1>
           Enter a new username and password to proceed:
       </h1>
+      <form action="/create" method = "post"> <!-- same pathway as authenticate() -->
+         Username: <input type="text" name="username"> <br>
+         Password: <input type="text" name="password"> <br> <br>
+        <input type="submit" name="sub1"> <!-- used for response page to load -->
+      </form>
   </body>
