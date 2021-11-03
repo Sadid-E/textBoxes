@@ -26,3 +26,8 @@ SadidE -- 2021-11-3 0:20
 - Made SQLite database
 - Made registration form
 - Made login form
+
+SadidE -- 2021-11-3 14:25
+
+- Updated the registration form to account for blank and duplicates
+- Updated the error outputs and reformatted the templates
