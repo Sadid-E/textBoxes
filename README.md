@@ -7,10 +7,10 @@ Angela Zhang - HTML
 Lanch Codes:
 
 How to clone repo:
-1. clone in terminal using command:  
-```
-git clone git@github.com:Sadid-E/textBoxes.git
-```
+  1. clone in terminal using command:  
+     ```
+     git clone git@github.com:Sadid-E/textBoxes.git
+     ```
 How to create virtual environment (venv):
   1. create venv in home directory using command:  
      ```
