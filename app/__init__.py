@@ -4,6 +4,7 @@ from flask import Flask             #facilitate flask webserving
 from flask import render_template   #facilitate jinja templating
 from flask import request           #facilitate form submission
 from flask import session           #cookies
+from flask import redirect
 import os #for secret_key
 import sqlite3
 
@@ -20,13 +21,15 @@ db.close()
 
 @app.route("/", methods=['GET', 'POST'])
 def disp_loginpage():
-    #print(session)
     if session.get("name"):
         return loggedIn() #remembers when you're logged in
     return render_template('base.html')
 
 @app.route("/auth", methods=['GET', 'POST'])
 def authenticate():
+    m = request.method #either get or post
+    if session.get("name"):
+        return render_template('response.html', username = session["name"], method = m)
     user = request.form['username']
     pwd = request.form['password']
     if(user == ''): #empty username
@@ -39,7 +42,6 @@ def authenticate():
     if not c.fetchone():
         return render_template('login.html', error="Username or password incorrect. Try again.")
     else:
-        m = request.method #either get or post
         session["name"] = request.form['username'] #inputs cookies
         session["password"] = request.form['password'] #inputs cookies
         return render_template('response.html', username = session["name"], method = m)
@@ -72,10 +74,16 @@ def create():
 
 @app.route("/login" , methods = ['GET', 'POST'])
 def disp_login():
+    m = request.method #either get or post
+    if session.get("name"):
+        return redirect("/auth")
     return render_template('login.html', error = '')
 
 @app.route("/register" , methods = ['GET', 'POST'])
 def disp_register():
+    m = request.method #either get or post
+    if session.get("name"):
+        return redirect("/auth")
     return render_template('register.html', error='')
 
 @app.route("/out")
@@ -83,11 +91,11 @@ def out(): #logging out
     if len(session) > 0: #gets rid of cookie
         session.pop("name")
         session.pop("password")
-    return render_template('base.html', error = '') #goes back to login page
+    return redirect("/") #goes back to login page
 
 @app.route("/in")
 def loggedIn():
-    return render_template('response.html', username = session["name"], method = "GET")
+    return redirect("/auth")
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
