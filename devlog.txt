@@ -8,26 +8,31 @@ SadidE -- 2021-10-29 11:40
 - Added header to the design sheet
 - Added Task requirements to the design sheet 
 
-AaronC -- 2021-10-29 8:40
+AaronC -- 2021-10-29 08:40
 
 - Wrote launch codes
 - Made basic working site
 
-SadidE -- 2021-11-01 8:40
+SadidE -- 2021-11-01 08:40
 
 - Updated requirements
 
-AaronC -- 2021-11-02 9:29
+AaronC -- 2021-11-02 09:29
 
 - Added base page with a form that sends user to either register or login. 
 
-SadidE -- 2021-11-3 0:20
+SadidE -- 2021-11-03 00:20
 
 - Made SQLite database
 - Made registration form
 - Made login form
 
-SadidE -- 2021-11-3 14:25
+SadidE -- 2021-11-03 14:25
 
 - Updated the registration form to account for blank and duplicates
 - Updated the error outputs and reformatted the templates
+
+SadidE -- 2021-11-04 08:38
+
+- Added redirects to the python file
+- Updated the launch codes
