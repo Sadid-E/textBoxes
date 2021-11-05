@@ -24,21 +24,21 @@ How to create virtual environment (venv):
      ```
      . ~/<filename>/Scripts/activate
      ```
-  3. install dependencies on venv with command:  
-     ```
-     pip3 install -r requirements.txt  
-     ```
   
 Open cloned resposity and run:
   1. In home directory open textBoxes using command:   
      ```
      cd textBoxes
      ```
-  2. run app with command: 
+  2. install dependencies on venv with command:  
+     ```
+     pip3 install -r requirements.txt  
+     ```
+  3. run app with command: 
      ```  
      python app.py
      ```
-  3. Copy the link flask provides into a browser of your choosing. 
+  4. Copy the link flask provides into a browser of your choosing. 
   
   
   
