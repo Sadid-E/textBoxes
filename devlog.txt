@@ -36,3 +36,11 @@ SadidE -- 2021-11-04 08:38
 
 - Added redirects to the python file
 - Updated the launch codes
+
+GavinM -- 2021-11-05 8:15
+
+- Added a form to Home to create stories
+
+AaronC -- 2021-11-05 8:20
+
+- edited launchcodes, resolved issue with requirements.txt
