@@ -24,9 +24,9 @@ How to create virtual environment (venv):
      ```
      . ~/<filename>/Scripts/activate
      ```
-  3. install flask on venv with command:  
+  3. install dependencies on venv with command:  
      ```
-     pip3 install flask
+     pip3 install -r requirements.txt  
      ```
   
 Open cloned resposity and run:
