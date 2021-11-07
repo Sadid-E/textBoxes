@@ -12,14 +12,14 @@
   </head>
   <body>
     <h1>
-      Hello {{username}}! <br> <!-- inputs username from form -->
-      We are Team Text Boxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+      hello {{username}}! <br> <!-- inputs username from form -->
+      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
     </h1>
-    <h3>
-    You used {{method}} <!-- get --> to get here!
-    </h3>
-    <form>
-      <input formaction = "/out" type="submit" value="Log out">
+    <form action = "/makestory">
+      <input type="submit" name="S" value="Create Story">
+    </form>
+    <form action = "/out">
+      <input type="submit" name="S" value="Log out">
     </form>
   </body>
 </html>

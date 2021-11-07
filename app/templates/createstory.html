@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+# Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+# SoftDev
+# P00 -- Scenario One Project
+# 2021-11-12
+ -->
+<html>
+
+  <head>
+    <title> Create Story </title>
+  </head>
+
+  <body>
+    <h1>
+      Welcome to our story site! <br>
+      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)<br>
+      Start a Story
+    </h1>
+    <form action="/poststory" method="post">
+    	<p style="color:red;">{{error}}</p>
+    	<b>Title</b><br>
+    	<input type="text" name="storytitle"><br>
+    	<b>First Story Entry</b><br>
+    	<textarea rows= "5" cols= "50" name= "firstentry">First Entry
+    	</textarea>
+    	<br>
+        <input type="submit" name="poststory" value = "Post Story">
+    </form>
