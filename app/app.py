@@ -86,37 +86,39 @@ def disp_register():
 		return redirect("/auth")
 	return render_template('register.html', error='')
 
-@app.route("/out")
+@app.route("/out", methods=['GET', 'POST'])
 def out(): #logging out
 	if len(session) > 0: #gets rid of cookie
 		session.pop("name")
 		session.pop("password")
 	return redirect("/") #goes back to login page
 
-@app.route("/in")
+@app.route("/in", methods=['GET', 'POST'])
 def loggedIn():
 	return render_template('response.html', username = session["name"], method = "GET", error="")
 
-@app.route("/makestory")
+@app.route("/makestory", methods=['GET', 'POST'])
 def editpage():
 	return render_template('createstory.html',error="")
 
 @app.route("/poststory", methods=['GET', 'POST'])
 def poststory():
-	title=request.form["storytitle"];
+	title=request.form["storytitle"]
+	if (title==""):
+		return render_template('createstory.html',error="Please enter a title.")
 	print(title)
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
 	k="SELECT name FROM sqlite_master WHERE type='table';"
 	listOfTables = c.execute(k).fetchall()
-	same=False;
+	same=False
 	for item in listOfTables:
 		if item[0]==title.replace(" ",""):
 			same=True
 	if same:
 		db.commit()
 		db.close()
-		return render_template('createstory.html',error="Title Already In Use, Please Pick Another One")
+		return render_template('createstory.html',error="Title already in use. Please pick another one")
 	else:
 		text=request.form["firstentry"]
 		c.execute("CREATE TABLE "+title.replace(" ","")+"(entrynum INTEGER,entrytext TEXT,user TEXT);")
