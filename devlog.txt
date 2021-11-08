@@ -44,3 +44,8 @@ GavinM -- 2021-11-05 8:15
 AaronC -- 2021-11-05 8:20
 
 - edited launchcodes, resolved issue with requirements.txt
+
+- SadidE -- 2021-11-07 23:05
+
+- Changed formatting of createstory and response templates
+- Added error for blank title in the create story page
