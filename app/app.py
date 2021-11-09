@@ -72,6 +72,10 @@ def create():
 		session["password"] = request.form['password']
 		return render_template('response.html', username = session["name"], method = m)
 
+@app.route("/recentStories", methods=['GET', 'POST'])
+def viewRecent():
+	return render_template('recentStories.html', username = session["name"], method = "GET", error="")
+
 @app.route("/login" , methods = ['GET', 'POST'])
 def disp_login():
 	m = request.method #either get or post
