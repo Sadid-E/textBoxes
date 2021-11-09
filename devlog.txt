@@ -57,4 +57,10 @@ AaronC -- 2021-11-08 8:57
 - Added base page to the site map
 - Updated tasks
 
+SadidE -- 2021-11-08 9:33
+
+- Removed for loop to check for duplicates
+- Added error for duplicate titles with different capitalization
+- Added error for non-alphanumeric titles 
+
 
