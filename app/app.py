@@ -104,26 +104,23 @@ def editpage():
 @app.route("/poststory", methods=['GET', 'POST'])
 def poststory():
 	title=request.form["storytitle"]
-	if (title==""):
+	if (title=="" or title.isspace()): 
 		return render_template('createstory.html',error="Please enter a title.")
+	if not title.replace(" ","").isalnum(): # checks if title only includes alphanumeric characters
+		return render_template('createstory.html',error="Please make sure the title only includes alphanumeric characters.")
 	print(title)
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
-	k="SELECT name FROM sqlite_master WHERE type='table';"
-	listOfTables = c.execute(k).fetchall()
-	same=False
-	for item in listOfTables:
-		if item[0]==title.replace(" ",""):
-			same=True
-	if same:
+	c.execute("SELECT * FROM sqlite_master WHERE type='table' AND name=:n;", {"n":title.replace(" ","").lower()}) # checks for duplicate titles
+	if c.fetchall(): 
 		db.commit()
 		db.close()
 		return render_template('createstory.html',error="Title already in use. Please pick another one")
 	else:
 		text=request.form["firstentry"]
-		c.execute("CREATE TABLE "+title.replace(" ","")+"(entrynum INTEGER,entrytext TEXT,user TEXT);")
-		c.execute('INSERT INTO '+title.replace(" ","")+' (entrynum, entrytext, user) VALUES(?,?,?)',(0,title,session["name"]))
-		c.execute('INSERT INTO ' + title.replace(" ","") + ' (entrynum, entrytext, user) VALUES(?,?,?)', (1, text, session["name"]))
+		c.execute("CREATE TABLE "+title.replace(" ","").lower()+"(entrynum INTEGER,entrytext TEXT,user TEXT);")
+		c.execute('INSERT INTO '+title.replace(" ","").lower()+' (entrynum, entrytext, user) VALUES(?,?,?)',(0,title,session["name"]))
+		c.execute('INSERT INTO ' + title.replace(" ","").lower() + ' (entrynum, entrytext, user) VALUES(?,?,?)', (1, text, session["name"]))
 		db.commit()
 		db.close()
 		return redirect("/in")
