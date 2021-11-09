@@ -4,63 +4,49 @@ POO -- Devlog
 2021-10-29
 
 SadidE -- 2021-10-29 11:40
-
-- Added header to the design sheet
-- Added Task requirements to the design sheet 
+Added header to the design sheet.
+Added Task requirements to the design sheet. 
 
 AaronC -- 2021-10-29 08:40
-
-- Wrote launch codes
-- Made basic working site
+Wrote launch codes.
+Made basic working site.
 
 SadidE -- 2021-11-01 08:40
-
-- Updated requirements
+Updated requirements.
 
 AaronC -- 2021-11-02 09:29
-
-- Added base page with a form that sends user to either register or login. 
+Added base page with a form that sends user to either register or login. 
 
 SadidE -- 2021-11-03 00:20
-
-- Made SQLite database
-- Made registration form
-- Made login form
+Made SQLite database.
+Made registration form.
+Made login form.
 
 SadidE -- 2021-11-03 14:25
-
-- Updated the registration form to account for blank and duplicates
-- Updated the error outputs and reformatted the templates
+Updated the registration form to account for blank and duplicates.
+Updated the error outputs and reformatted the templates.
 
 SadidE -- 2021-11-04 08:38
+Added redirects to the python file.
+Updated the launch codes.
 
-- Added redirects to the python file
-- Updated the launch codes
+GavinM -- 2021-11-05 08:15
+Added a form to Home to create stories.
 
-GavinM -- 2021-11-05 8:15
-
-- Added a form to Home to create stories
-
-AaronC -- 2021-11-05 8:20
-
-- edited launchcodes
-- updtated requirements.txt to remove redundant install command
+AaronC -- 2021-11-05 08:20
+Edited launchcodes.
+Updtated requirements.txt to remove redundant install command.
 
 SadidE -- 2021-11-07 23:05
+Changed formatting of createstory and response templates.
+Added error for blank title in the create story page.
 
-- Changed formatting of createstory and response templates
-- Added error for blank title in the create story page
+AaronC -- 2021-11-08 20:57
+Updated design.pdf.
+Added base page to the site map.
+Updated tasks.
 
-AaronC -- 2021-11-08 8:57
-
-- Updated design.pdf
-- Added base page to the site map
-- Updated tasks
-
-SadidE -- 2021-11-08 9:33
-
-- Removed for loop to check for duplicates
-- Added error for duplicate titles with different capitalization
-- Added error for non-alphanumeric titles 
-
-
+SadidE -- 2021-11-08 21:33
+Removed for loop to check for duplicates. 
+Added error for duplicate titles with different capitalization. 
+Added error for non-alphanumeric titles.
