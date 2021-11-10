@@ -15,7 +15,7 @@ app.secret_key = os.urandom(32)
 DB_FILE="story.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops -- you will use cursor to trigger db events
-c.execute("CREATE TABLE IF NOT EXISTS accounts(username TEXT, password TEXT);")
+c.execute("CREATE TABLE IF NOT EXISTS accounts(username TEXT, password TEXT, storiescontributed TEXT, storiescreated TEXT);")
 db.commit()
 db.close()
 
@@ -64,7 +64,7 @@ def create():
 	if c.fetchone():
 		return render_template('register.html', error="Username already exists. Try again.")
 	else:
-		c.execute('INSERT INTO accounts (username, password) VALUES(?,?)',(request.form['username'],request.form['password']))
+		c.execute('INSERT INTO accounts (username, password, storiescontributed, storiescreated) VALUES(?,?,?,?)',(request.form['username'],request.form['password'],"/","/"))
 		db.commit()
 		db.close()
 		m = request.method
@@ -112,11 +112,11 @@ def poststory():
 		return render_template('createstory.html',error="Please enter a title.")
 	if not title.replace(" ","").isalnum(): # checks if title only includes alphanumeric characters
 		return render_template('createstory.html',error="Please make sure the title only includes alphanumeric characters.")
-	print(title)
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
-	c.execute("SELECT * FROM sqlite_master WHERE type='table' AND name=:n;", {"n":title.replace(" ","").lower()}) # checks for duplicate titles
-	if c.fetchall(): 
+	k=c.execute("SELECT * FROM sqlite_master WHERE type='table' AND name=:n;", {"n":title.replace(" ","").lower()}) # checks for duplicate titles
+	print(c.fetchall())
+	if c.fetchall()!=[]:
 		db.commit()
 		db.close()
 		return render_template('createstory.html',error="Title already in use. Please pick another one")
@@ -125,6 +125,14 @@ def poststory():
 		c.execute("CREATE TABLE "+title.replace(" ","").lower()+"(entrynum INTEGER,entrytext TEXT,user TEXT);")
 		c.execute('INSERT INTO '+title.replace(" ","").lower()+' (entrynum, entrytext, user) VALUES(?,?,?)',(0,title,session["name"]))
 		c.execute('INSERT INTO ' + title.replace(" ","").lower() + ' (entrynum, entrytext, user) VALUES(?,?,?)', (1, text, session["name"]))
+		c.execute("SELECT storiescontributed FROM accounts WHERE username='" + session['name'] + "'")
+		new= c.fetchone()[0]+title.replace(" ","").lower()+"/"
+		c.execute("UPDATE accounts SET storiescontributed='"+new+"' WHERE username='" + session['name'] + "'")
+
+		c.execute("SELECT storiescreated FROM accounts WHERE username='" + session['name'] + "'")
+		new = c.fetchone()[0] + title.replace(" ", "").lower() + "/"
+		c.execute("UPDATE accounts SET storiescreated='" + new + "' WHERE username='" + session['name'] + "'")
+
 		db.commit()
 		db.close()
 		return redirect("/in")
