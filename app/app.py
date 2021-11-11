@@ -55,7 +55,6 @@ def home():
 	new = c.fetchone()[0]
 	contributed = new.split("/")[1:-1]
 	titles=[]
-	entries=[]
 	poster=[]
 	for i in contributed:
 		c.execute("SELECT entrytext FROM '"+i+"' WHERE entrynum=0")
@@ -66,14 +65,9 @@ def home():
 		store = c.fetchone()[0];
 		poster.append(store)
 
-		c.execute("SELECT entrytext FROM '" + i + "' WHERE entrynum!=-1 AND entrynum!=0")
-		s = [i[0] for i in c.fetchall()]
-		store = ' '.join(s)
-		print(store)
-		entries.append(store)
 	if session.get("name"):
 		num = len(poster)
-		return render_template('home.html', username = session["name"], method = m, titles=titles,entries=entries,poster=poster,num=num)
+		return render_template('home.html', username = session["name"], method = m, titles=titles,poster=poster,num=num)
 	else: 
 		return redirect("/")	
 
@@ -169,7 +163,7 @@ def entrypage():
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
 	i=request.form["toedit"]
-	print(i)
+	
 	c.execute("SELECT entrytext FROM '" + i + "' WHERE entrynum=-1")
 	lastentry = c.fetchone()[0];
 
@@ -256,6 +250,20 @@ def poststory():
 		db.close()
 		return redirect("/in")
 
+@app.route("/displaystory", methods=['GET', 'POST'])
+def displaystory():
+	db = sqlite3.connect("story.db")
+	title = request.args["title"]
+	poster = request.args["poster"]
+	new_title = title.replace(" ","").lower()
+	c = db.cursor()	
+	
+	c.execute("SELECT entrytext FROM '" + new_title + "' WHERE entrynum!=-1 AND entrynum!=0")
+	s = [i[0] for i in c.fetchall()]
+	store = ("<br>").join(s)
+	print(store)
+
+	return render_template('displayentry.html', title = title, text = s, author = poster)
 
 if __name__ == "__main__": #false if this file imported as module
 	#enable debugging, auto-restarting of server when this file is modified

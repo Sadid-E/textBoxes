@@ -57,4 +57,9 @@ Updated response, login, and register html for easier user interaction.
 SadidE -- 2021-11-11 03:40
 Created a home route for the homepage. 
 Replaced response.html with home.html.
-Homepage now displays the stories that the user has contributed to. 
+Homepage now displays the stories that the user has contributed to.
+
+AaronC -- 2021-11-11 5:38
+Added a table to display contributed to stories in home.html
+Added a template display entry that formats and displays story
+Allows user to choose story they want to see
