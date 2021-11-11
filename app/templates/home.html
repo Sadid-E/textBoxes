@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <!--
-# Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+# Team  textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
 # SoftDev
-# P00 -- Scenario One Project
+# P00 -- Scenario One
 # 2021-11-12
- -->
-
+-->
 
 <html>
-
   <head>
-    <title> HOME PAGE </title>
+    <title> HOME PAGE </title> <!-- title of webpage (not in actual website) -->
   </head>
-
   <body>
     <h1>
-      Welcome to our story site! <br>
+      Hello {{username}}! <br> <!-- inputs username from form -->
       We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
     </h1>
+    <br>
 
-    <form>
-        <input formaction = "/login" type="submit"  value="Log In">
-        <input formaction = "/register" type="submit" value="Register">
+    <form action = "/makestory" method="post">
+      <input type="submit" name="S" value="Create Story">
     </form>
+    <br>
+    
+    <form action = "/findStories" method="post">
+      <input type="submit" name="S" value="Find Stories">
+    </form>
+    <br><br>
+    
+    <b><font size="5">Stories You Have Contributed To</font></b>
+    {% for i in range(num) %}
+    <br><br>
+    <b><font size="4">{{titles[i]}}</font></b>
+    <br>
+    <em>Created by {{poster[i]}}</em>
+    <br>
+    {{entries[i]}}
+    {% endfor %}
+    <br><br><br><br>
+    
+    <form action = "/out">
+      <input type="submit" name="S" value="Log out">
+    </form>
+  
+  </body>
+</html>

@@ -27,9 +27,6 @@ def disp_loginpage():
 
 @app.route("/auth", methods=['GET', 'POST'])
 def authenticate():
-	m = request.method #either get or post
-	if session.get("name"):
-		return render_template('response.html', username = session["name"], method = m)
 	user = request.form['username']
 	pwd = request.form['password']
 	if(user == ''): #empty username
@@ -44,9 +41,41 @@ def authenticate():
 	else:
 		session["name"] = request.form['username'] #inputs cookies
 		session["password"] = request.form['password'] #inputs cookies
-		return render_template('response.html', username = session["name"], method = m)
+		return redirect("/home")
+		
 	db.commit()
 	db.close()
+
+@app.route("/home", methods=['GET', 'POST'])
+def home():
+	m = request.method #either get or post
+	db = sqlite3.connect("story.db")
+	c = db.cursor()
+	c.execute("SELECT storiescontributed FROM accounts WHERE username='"+session['name']+"';")
+	new = c.fetchone()[0]
+	contributed = new.split("/")[1:-1]
+	titles=[]
+	entries=[]
+	poster=[]
+	for i in contributed:
+		c.execute("SELECT entrytext FROM '"+i+"' WHERE entrynum=0")
+		store=c.fetchone()[0];
+		titles.append(store)
+
+		c.execute("SELECT user FROM '" + i + "' WHERE entrynum=0")
+		store = c.fetchone()[0];
+		poster.append(store)
+
+		c.execute("SELECT entrytext FROM '" + i + "' WHERE entrynum!=-1 AND entrynum!=0")
+		s = [i[0] for i in c.fetchall()]
+		store = ' '.join(s)
+		print(store)
+		entries.append(store)
+	if session.get("name"):
+		num = len(poster)
+		return render_template('home.html', username = session["name"], method = m, titles=titles,entries=entries,poster=poster,num=num)
+	else: 
+		return redirect("/")	
 
 @app.route("/create", methods=['GET', 'POST'])
 def create():
@@ -70,7 +99,7 @@ def create():
 		m = request.method
 		session["name"] = request.form['username']
 		session["password"] = request.form['password']
-		return render_template('response.html', username = session["name"], method = m)
+		return redirect('/home')
 
 @app.route("/recentStories", methods=['GET', 'POST'])
 def viewRecent():
@@ -80,14 +109,14 @@ def viewRecent():
 def disp_login():
 	m = request.method #either get or post
 	if session.get("name"):
-		return redirect("/auth")
+		return redirect("/home")
 	return render_template('login.html', error = '')
 
 @app.route("/register" , methods = ['GET', 'POST'])
 def disp_register():
 	m = request.method #either get or post
 	if session.get("name"):
-		return redirect("/auth")
+		return redirect("/home")
 	return render_template('register.html', error='')
 
 @app.route("/out", methods=['GET', 'POST'])
@@ -99,7 +128,7 @@ def out(): #logging out
 
 @app.route("/in", methods=['GET', 'POST'])
 def loggedIn():
-	return render_template('response.html', username = session["name"], method = "GET", error="")
+	return redirect('home')
 
 @app.route("/findStories", methods=['GET', 'POST'])
 def newstorylist():
@@ -187,7 +216,8 @@ def updatestory():
 
 		db.commit()
 		db.close()
-		return render_template('response.html', username = session["name"], method = "GET", error="")
+		return redirect('home')
+
 @app.route("/makestory", methods=['GET', 'POST'])
 def editpage():
 	return render_template('createstory.html',error="", entry="First Entry")
