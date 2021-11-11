@@ -15,14 +15,17 @@
     <h1>
       Welcome to our story site! <br>
       We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)<br>
-      Start a Story
+      Add to a Story
     </h1>
-    <form action="/poststory" method="post">
+    <form action="/updatestory" method="post">
     	<p style="color:red;">{{error}}</p>
-    	<b>Title</b><br>
-    	<input type="text" name="storytitle"><br>
-    	<b>First Story Entry</b><br>
-    	<textarea rows= "5" cols= "50" name= "firstentry">{{entry}}</textarea>
+        <b>{{title}}</b> created by {{origin}}<br>
+    	Latest Entry (by {{poster}})<br>
+        {{lastentry}}
+        <br>
+        <br>
+    	<b>New Entry</b><br>
+    	<textarea rows= "5" cols= "50" name= "newentry">{{entry}}</textarea>
     	<br>
-        <input type="submit" name="poststory" value = "Post Story">
+        <input type="submit" name="updatestory" value = "Upload">
     </form>

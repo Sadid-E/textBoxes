@@ -11,8 +11,17 @@
       hello {{username}}! <br> <!-- inputs username from form -->
       We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
     </h1>
-  <h2>{{ story_title }}</h2>
-  <h3>This is the latest story update! <br>
-      {{ last_entry }}</h3>
-  
+  <form action="/editstory" method="post">
+
+  <h2>New Stories to Edit</h2>
+    <input type="submit" name="onwardtostory" >
+  {% for i in range(num) %}
+  <br>
+  <br>
+    <b>{{titles[i]}}</b><input type="radio" name="toedit" id={{buttons[i]}} value={{buttons[i]}}>
+    <br>
+    Latest Entry (by {{poster[i]}})<br>
+    {{lastentry[i]}}
+  {% endfor %}
+  </form>
 </body>
