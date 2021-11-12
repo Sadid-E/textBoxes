@@ -253,18 +253,23 @@ def poststory():
 		return render_template('createstory.html',error="Title already in use. Please pick another one")
 	else:
 		text=request.form["firstentry"]
-		c.execute("CREATE TABLE "+title.replace(" ","").lower()+"(entrynum INTEGER,entrytext TEXT,user TEXT);")
-		c.execute('INSERT INTO '+title.replace(" ","").lower()+' (entrynum, entrytext, user) VALUES(?,?,?)',(0,title,session["name"]))
-		c.execute('INSERT INTO ' + title.replace(" ","").lower() + ' (entrynum, entrytext, user) VALUES(?,?,?)', (1, text, session["name"]))
-		c.execute('INSERT INTO ' + title.replace(" ", "").lower() + ' (entrynum, entrytext, user) VALUES(?,?,?)',(-1, text, session["name"]))
-		c.execute("SELECT storiescontributed FROM accounts WHERE username='" + session['name'] + "'")
+		if title.replace(" ","").isnumeric():
+			c.execute("CREATE TABLE `"+title.replace(" ","").lower()+"` (entrynum INTEGER,entrytext TEXT,user TEXT);")
+			c.execute('INSERT INTO `'+title.replace(" ","").lower()+'` (entrynum, entrytext, user) VALUES(?,?,?)',(0,title,session["name"]))
+			c.execute('INSERT INTO `' + title.replace(" ","").lower() + '` (entrynum, entrytext, user) VALUES(?,?,?)', (1, text, session["name"]))
+			c.execute('INSERT INTO `' + title.replace(" ", "").lower() + '` (entrynum, entrytext, user) VALUES(?,?,?)',(-1, text, session["name"]))
+			c.execute("SELECT storiescontributed FROM accounts WHERE username='" + session['name'] + "'")
+		else:
+			c.execute("CREATE TABLE "+title.replace(" ","").lower()+"(entrynum INTEGER,entrytext TEXT,user TEXT);")
+			c.execute('INSERT INTO '+title.replace(" ","").lower()+' (entrynum, entrytext, user) VALUES(?,?,?)',(0,title,session["name"]))
+			c.execute('INSERT INTO ' + title.replace(" ","").lower() + ' (entrynum, entrytext, user) VALUES(?,?,?)', (1, text, session["name"]))
+			c.execute('INSERT INTO ' + title.replace(" ", "").lower() + ' (entrynum, entrytext, user) VALUES(?,?,?)',(-1, text, session["name"]))
+			c.execute("SELECT storiescontributed FROM accounts WHERE username='" + session['name'] + "'")
 		new= c.fetchone()[0]+title.replace(" ","").lower()+"/"
 		c.execute("UPDATE accounts SET storiescontributed='"+new+"' WHERE username='" + session['name'] + "'")
-
 		c.execute("SELECT storiescreated FROM accounts WHERE username='" + session['name'] + "'")
 		new = c.fetchone()[0] + title.replace(" ", "").lower() + "/"
 		c.execute("UPDATE accounts SET storiescreated='" + new + "' WHERE username='" + session['name'] + "'")
-
 		db.commit()
 		db.close()
 		return redirect("/in")
