@@ -7,21 +7,17 @@
 </head>
 
 <body>
-  <h1>
-      hello {{username}}! <br> <!-- inputs username from form -->
-      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
-    </h1>
   <form action="/editstory" method="post">
-
-  <h2>New Stories to Edit</h2>
-    <input type="submit" name="onwardtostory" >
-  {% for i in range(num) %}
-  <br>
-  <br>
+    <h2>New Stories to Edit</h2>
+    <h3>Select a story.</h3>
+    {% for i in range(num) %}
     <b>{{titles[i]}}</b><input type="radio" name="toedit" id={{buttons[i]}} value={{buttons[i]}}>
     <br>
     Latest Entry (by {{poster[i]}})<br>
     {{lastentry[i]}}
-  {% endfor %}
+    <br><br>
+    {% endfor %}
+    <br>
+    <input type="submit" name="onwardtostory" value="Edit Story">
   </form>
 </body>

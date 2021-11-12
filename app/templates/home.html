@@ -13,7 +13,8 @@
   <body>
     <h1>
       Hello {{username}}! <br> <!-- inputs username from form -->
-      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley)
+      We are Team textBoxes (Angela Zhang, Aaron Contreras, Sadid Ethun, Gavin McGinley) <br>
+      Welcome to our story site.
     </h1>
     <br>
 
@@ -22,14 +23,13 @@
     </form>
     <br>
     
-    <form action = "/findStories" method="post">
+    <form action = "/findstories" method="post">
       <input type="submit" name="S" value="Find Stories">
     </form>
     <br><br>
     
-    <b><font size="5">Stories You Have Contributed To</font></b>
+    <h2>Stories You Have Contributed To</h2>
     
-    <br><br>
     <table>
     <tr>
       <th>Created By</th>
@@ -52,7 +52,7 @@
     </tr>
     {% endfor %}
   </table>
-    <br><br><br><br>
+    <br><br><br>
     
     <form action = "/out">
       <input type="submit" name="S" value="Log out">
