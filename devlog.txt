@@ -73,4 +73,10 @@ Reformatted some of the templates.
 Added the team flag.
 
 GavinM -- 2021-11-11 22:00
-Minor bug fixes (trouble with apostrophes in updating story). Display poster of each individual entry to a story. Gives a message when no stories have been contributed or none are available.
+Minor bug fixes (trouble with apostrophes in updating story). 
+Display poster of each individual entry to a story. 
+Gives a message when no stories have been contributed or none are available.
+
+SadidE -- 2021-11-11 23:17
+Fixed error when creating a story with a numeric title.
+Fixed errors when a user tries to go to routes while they are not logged in.
