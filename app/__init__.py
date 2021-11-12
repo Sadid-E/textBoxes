@@ -157,7 +157,9 @@ def newstorylist():
 def entrypage():
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
-	i=request.form["toedit"]
+	if "toedit" not in request.form:
+		return redirect("/findstories")
+	i = request.form["toedit"]
 	
 	c.execute("SELECT entrytext FROM '" + i + "' WHERE entrynum=-1")
 	lastentry = c.fetchone()[0];
@@ -173,18 +175,37 @@ def entrypage():
 	db.commit()
 	db.close()
 	#don't forget to address this later
-	session['target']=i
+	session['target']= i
 	return render_template("editstory.html", title=title, origin=origin, lastentry=lastentry, poster=lastuser, error="", entry="New Entry" )
 
 @app.route("/updatestory", methods=['GET', 'POST'])
 def updatestory():
 	k=request.form['newentry']
+	print(session['target'])
 	i = session['target']
 	session.pop('target')
 	wordcount=len(k.split(" "))
 	q="Your entry is "+str(wordcount)+" words long. Please reduce it to less than 200."
+	print (wordcount)
 	if (wordcount>200):
-		return render_template("editstory.html", title=title, origin=origin, lastentry=lastentry, poster=lastuser, error=q, entry=k )
+		db = sqlite3.connect("story.db")
+		c = db.cursor()
+		c.execute("SELECT entrytext FROM '" + i + "' WHERE entrynum=-1")
+		lastentry = c.fetchone()[0];
+
+		c.execute("SELECT entrytext FROM '" + i + "' WHERE entrynum=0")
+		title = c.fetchone()[0];
+
+		c.execute("SELECT user FROM '" + i + "' WHERE entrynum=-1")
+		lastuser = c.fetchone()[0];
+
+		c.execute("SELECT user FROM '" + i + "' WHERE entrynum=0")
+		origin = c.fetchone()[0];
+		db.commit()
+		db.close()
+		# don't forget to address this later
+		session['target'] = i
+		return render_template("editstory.html", title=title, origin=origin, lastentry=lastentry, poster=lastuser, error=q, entry=k)
 	else:
 		db = sqlite3.connect("story.db")
 		c = db.cursor()
@@ -195,9 +216,12 @@ def updatestory():
 			if(en[0]>top):
 				top=en[0]
 		top=top+1
-		c.execute('INSERT INTO ' + i + ' (entrynum, entrytext, user) VALUES(?,?,?)',
-				  (top, k, session["name"]))
-		c.execute("UPDATE "+i+" SET entrytext='" + k + "',user= '" + session['name'] + "' WHERE entrynum=-1")
+		c.execute('INSERT INTO ' + i + ' (entrynum, entrytext, user) VALUES(?,?,?)', (top, k, session["name"]))
+		c.execute("UPDATE " + i +" SET entrytext=:entry, user=:u WHERE entrynum=-1",{"entry":k,"u":session['name']})
+
+		#c.execute("UPDATE "+i+" SET entrytext='" + k + "',user= '" + session['name'] + "' WHERE entrynum=-1")
+		#c.execute("SELECT * from accounts WHERE username=:u AND password=:p;", {"u":user, "p":pwd})
+
 
 		c.execute("SELECT storiescontributed FROM accounts WHERE username='" + session['name'] + "'")
 		new = c.fetchone()[0] + i + "/"
@@ -255,10 +279,11 @@ def displaystory():
 	
 	c.execute("SELECT entrytext FROM '" + new_title + "' WHERE entrynum!=-1 AND entrynum!=0")
 	s = [i[0] for i in c.fetchall()]
-	store = ("<br>").join(s)
-	print(store)
+	c.execute("SELECT user FROM '" + new_title + "' WHERE entrynum!=-1 AND entrynum!=0")
+	l = [i[0] for i in c.fetchall()]
+	posts=len(l)
 
-	return render_template('displayentry.html', title = title, text = s, author = poster)
+	return render_template('displayentry.html', title = title, text = s, author = poster, num=posts, users=l)
 
 @app.after_request
 def after_request(response):

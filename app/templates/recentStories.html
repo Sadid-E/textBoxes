@@ -5,11 +5,17 @@
 <head>
   <title> Recent Stories </title>
 </head>
-
+<form action = "/home" method="post">
+      <input type="submit" name="S" value="Home">
+</form>
 <body>
   <form action="/editstory" method="post">
     <h2>New Stories to Edit</h2>
+    {% if num==0 %}
+    No stories available to edit :(
+    {% else %}
     <h3>Select a story.</h3>
+
     {% for i in range(num) %}
     <b>{{titles[i]}}</b><input type="radio" name="toedit" id={{buttons[i]}} value={{buttons[i]}}>
     <br>
@@ -19,5 +25,6 @@
     {% endfor %}
     <br>
     <input type="submit" name="onwardtostory" value="Edit Story">
+    {% endif %}
   </form>
 </body>

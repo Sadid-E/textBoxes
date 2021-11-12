@@ -29,29 +29,32 @@
     <br><br>
     
     <h2>Stories You Have Contributed To</h2>
+    {% if num==0 %}
+    You haven't contributed to any stories :(
+    {% else %}
+      <table>
+      <tr>
+        <th>Created By</th>
+        <th>Title</th>
+        <th></th>
+      </tr>
     
-    <table>
-    <tr>
-      <th>Created By</th>
-      <th>Title</th>
-      <th></th>
-    </tr>
-    
-    {% for i in range(num) %}
-    <tr>
-      <td>{{poster[i]}}</td>
-      <td>{{titles[i]}}</td>
-      <td>
-      <form action = "/displaystory" method = "get">
+      {% for i in range(num) %}
+      <tr>
+        <td>{{poster[i]}}</td>
+        <td>{{titles[i]}}</td>
+        <td>
+        <form action = "/displaystory" method = "get">
         <input type = "hidden" name = "title" Value = '{{titles[i]}}'>
         <input type = "hidden" name = "poster" Value = '{{poster[i]}}'>
         <input type = "submit" name = "name" Value = "View Story">
-      </form>
-      </td>
+        </form>
+        </td>
       
-    </tr>
-    {% endfor %}
-  </table>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
     <br><br><br>
     
     <form action = "/out">

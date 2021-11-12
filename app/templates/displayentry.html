@@ -6,9 +6,13 @@
 # P00 -- Scenario One
 # 2021-11-12
 -->
-
+<form action = "/home" method="post">
+      <input type="submit" name="S" value="Home">
+</form>
 <h1>{{title}}</h1>
 <h3><i>By: {{author}} and Others</i></h3>
-{% for word in text %}
-    <p>{{word}}</p>
+{% for i in range(num) %}
+    <b>{{users[i]}}:</b> {{text[i]}}
+    <br>
+    <br>
 {% endfor %}
