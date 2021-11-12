@@ -48,6 +48,8 @@ def authenticate():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
+	if not session.get("name"):
+		return redirect("/")
 	m = request.method #either get or post
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
@@ -60,16 +62,11 @@ def home():
 		c.execute("SELECT entrytext FROM '"+i+"' WHERE entrynum=0")
 		store=c.fetchone()[0];
 		titles.append(store)
-
 		c.execute("SELECT user FROM '" + i + "' WHERE entrynum=0")
 		store = c.fetchone()[0];
 		poster.append(store)
-
-	if session.get("name"):
-		num = len(poster)
-		return render_template('home.html', username = session["name"], method = m, titles=titles,poster=poster,num=num)
-	else: 
-		return redirect("/")	
+	num = len(poster)
+	return render_template('home.html', username = session["name"], method = m, titles=titles,poster=poster,num=num)
 
 @app.route("/create", methods=['GET', 'POST'])
 def create():
@@ -101,14 +98,12 @@ def viewRecent():
 
 @app.route("/login" , methods = ['GET', 'POST'])
 def disp_login():
-	m = request.method #either get or post
 	if session.get("name"):
 		return redirect("/home")
 	return render_template('login.html', error = '')
 
 @app.route("/register" , methods = ['GET', 'POST'])
 def disp_register():
-	m = request.method #either get or post
 	if session.get("name"):
 		return redirect("/home")
 	return render_template('register.html', error='')
@@ -124,7 +119,7 @@ def out(): #logging out
 def loggedIn():
 	return redirect('home')
 
-@app.route("/findStories", methods=['GET', 'POST'])
+@app.route("/findstories", methods=['GET', 'POST'])
 def newstorylist():
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
@@ -264,6 +259,11 @@ def displaystory():
 	print(store)
 
 	return render_template('displayentry.html', title = title, text = s, author = poster)
+
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    return response
 
 if __name__ == "__main__": #false if this file imported as module
 	#enable debugging, auto-restarting of server when this file is modified
