@@ -36,7 +36,7 @@ Open cloned resposity and run:
      ```
   3. run app with command: 
      ```  
-     python app.py
+     python _innit_.py
      ```
   4. Copy the link flask provides into a browser of your choosing. 
   
