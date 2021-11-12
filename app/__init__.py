@@ -291,8 +291,8 @@ def displaystory():
 	if not session.get("name"):
 		return redirect("/")
 	db = sqlite3.connect("story.db")
-	title = request.args["title"]
-	poster = request.args["poster"]
+	title = request.form["title"]
+	poster = request.form["poster"]
 	new_title = title.replace(" ","").lower()
 	c = db.cursor()	
 	
