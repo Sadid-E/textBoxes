@@ -94,6 +94,8 @@ def create():
 
 @app.route("/recentStories", methods=['GET', 'POST'])
 def viewRecent():
+	if not session.get("name"):
+		return redirect("/")
 	return render_template('recentStories.html', username = session["name"], method = "GET", error="")
 
 @app.route("/login" , methods = ['GET', 'POST'])
@@ -121,6 +123,8 @@ def loggedIn():
 
 @app.route("/findstories", methods=['GET', 'POST'])
 def newstorylist():
+	if not session.get("name"):
+		return redirect("/")
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
 	c.execute("SELECT storiescontributed FROM accounts WHERE username='"+session['name']+"';")
@@ -155,6 +159,8 @@ def newstorylist():
 
 @app.route("/editstory", methods=['GET', 'POST'])
 def entrypage():
+	if not session.get("name"):
+		return redirect("/")
 	db = sqlite3.connect("story.db")
 	c = db.cursor()
 	if "toedit" not in request.form:
@@ -180,6 +186,8 @@ def entrypage():
 
 @app.route("/updatestory", methods=['GET', 'POST'])
 def updatestory():
+	if not session.get("name"):
+		return redirect("/")
 	k=request.form['newentry']
 	print(session['target'])
 	i = session['target']
@@ -233,10 +241,14 @@ def updatestory():
 
 @app.route("/makestory", methods=['GET', 'POST'])
 def editpage():
+	if not session.get("name"):
+		return redirect("/")
 	return render_template('createstory.html',error="", entry="First Entry")
 
 @app.route("/poststory", methods=['GET', 'POST'])
 def poststory():
+	if not session.get("name"):
+		return redirect("/")
 	title=request.form["storytitle"]
 	entry=request.form['firstentry']
 	if (title=="" or title.isspace()): 
@@ -276,6 +288,8 @@ def poststory():
 
 @app.route("/displaystory", methods=['GET', 'POST'])
 def displaystory():
+	if not session.get("name"):
+		return redirect("/")
 	db = sqlite3.connect("story.db")
 	title = request.args["title"]
 	poster = request.args["poster"]
