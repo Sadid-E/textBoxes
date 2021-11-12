@@ -4,6 +4,9 @@ Aaron Contreras - Flask
 Gavin McGinley - Database  
 Angela Zhang - HTML  
 
+Description:  
+A website that a user has to register or login to use. The user can create a new story, edit an existing story that they have not contributed to yet, and view all the stories that they have contributed to. The website utilizes Flask, SQLite and HTML templates. 
+
 Lanch Codes:
 
 How to clone repo:
