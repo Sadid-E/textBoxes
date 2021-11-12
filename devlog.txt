@@ -54,6 +54,9 @@ Added error for non-alphanumeric titles.
 AngelaZ -- 2021-11-10 08-23
 Updated response, login, and register html for easier user interaction.
 
+GavinM -- 2021-11-10 17:30
+Created edit story form, created display story form, python/sqlite work to update a story
+
 SadidE -- 2021-11-11 03:40
 Created a home route for the homepage. 
 Replaced response.html with home.html.
@@ -68,3 +71,6 @@ SadidE -- 2021-11-11 19:57
 Renamed app.py to __init__.py.
 Reformatted some of the templates.
 Added the team flag.
+
+GavinM -- 2021-11-11 22:00
+Minor bug fixes (trouble with apostrophes in updating story). Display poster of each individual entry to a story. Gives a message when no stories have been contributed or none are available.
