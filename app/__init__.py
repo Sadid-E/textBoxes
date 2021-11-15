@@ -217,15 +217,15 @@ def updatestory():
 	else:
 		db = sqlite3.connect("story.db")
 		c = db.cursor()
-		c.execute("SELECT entrynum from "+i)
+		c.execute("SELECT entrynum from '"+i+"'")
 		nums=c.fetchall()
 		top=1;
 		for en in nums:
 			if(en[0]>top):
 				top=en[0]
 		top=top+1
-		c.execute('INSERT INTO ' + i + ' (entrynum, entrytext, user) VALUES(?,?,?)', (top, k, session["name"]))
-		c.execute("UPDATE " + i +" SET entrytext=:entry, user=:u WHERE entrynum=-1",{"entry":k,"u":session['name']})
+		c.execute('INSERT INTO "' + i + '" (entrynum, entrytext, user) VALUES(?,?,?)', (top, k, session["name"]))
+		c.execute("UPDATE '" + i +"' SET entrytext=:entry, user=:u WHERE entrynum=-1",{"entry":k,"u":session['name']})
 
 		#c.execute("UPDATE "+i+" SET entrytext='" + k + "',user= '" + session['name'] + "' WHERE entrynum=-1")
 		#c.execute("SELECT * from accounts WHERE username=:u AND password=:p;", {"u":user, "p":pwd})
